@@ -6,7 +6,7 @@ Last Updated: January 31, 2026
 
 ## Current Phase
 
-**Phase 0: Foundation & Research**
+**Phase 1: Infrastructure Setup** (Phase 0 tasks 0.3, 0.4, 0.6 deferred)
 
 ## Completed Tasks
 
@@ -42,11 +42,80 @@ Last Updated: January 31, 2026
   - Documented mapping rationale and design decisions
   - Coverage: 100% of active indices mapped, 19/20 categories populated (DOMESTIC_VIOLENCE has no direct mapping due to historical data limitations)
 
+**Phase 1 - Infrastructure Setup:**
+- ✅ **Task 1.1**: Initialize Docker Compose with postgres:16-postgis service
+  - Created `docker-compose.yml` with `postgis/postgis:16-3.4` image
+  - Configured environment variables with sensible defaults (POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT)
+  - Added healthcheck for container readiness monitoring
+  - Created `db/init/01-extensions.sql` to auto-enable PostGIS and postgis_topology extensions
+  - Updated `.env.example` with database configuration section
+  - Updated `.gitignore` with Docker and Node.js patterns
+
+- ✅ **Task 1.2**: Create NestJS project scaffold
+  - Created `api/` directory with full NestJS structure
+  - Configured `nest-cli.json`, `tsconfig.json`, `eslint.config.mjs`
+  - Created `main.ts` application entry point
+  - Created `app.module.ts` with ConfigModule and TypeOrmModule
+  - Created `HealthModule` with health check endpoint
+  - Created feature module structure (`areas/`, `common/`, `config/`, `health/`)
+
+- ✅ **Task 1.3**: Configure TypeORM with PostGIS types
+  - Configured TypeOrmModule.forRootAsync with dynamic config loading
+  - Created `database.config.ts` and `app.config.ts` configuration files
+  - Created PostGIS utilities in `common/postgis/`:
+    - `geometry.types.ts` - Point, Polygon, MultiPolygon type definitions
+    - `geometry.columns.ts` - TypeORM column helpers for geometry types
+    - `geometry.transformer.ts` - GeoJSON ↔ PostGIS transformers
+  - Configured synchronize: false for migration-based schema management
+
+- ✅ **Task 1.5**: Configure environment variables (.env.example)
+  - Database config: POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST, POSTGRES_PORT
+  - API config: NODE_ENV, API_PORT, CORS_ORIGIN
+  - External APIs: MAPBOX_API_TOKEN placeholder
+  - Full DATABASE_URL connection string template
+
+**Phase 2 - Database Schema:**
+- ✅ **Task 2.1**: Create `administrative_areas` table with PostGIS geometry column
+  - Created `AdministrativeArea` entity with UUID primary key
+  - Defined `AdminLevel` enum (country, region, department)
+  - Added PostGIS MultiPolygon geometry column (SRID 4326)
+  - Created migration `1706745600000-CreateAdministrativeAreas.ts`
+  - Added spatial index on geometry column (GIST)
+  - Added indexes on code+level (unique), level, parentCode, countryCode
+  - Created comprehensive unit tests
+
+- ✅ **Task 2.2**: Create `population` table (area_id, year, population_count)
+  - Created `Population` entity with UUID primary key
+  - Foreign key relationship to `AdministrativeArea` (cascade delete)
+  - Unique constraint on (areaId, year) to prevent duplicates
+  - BigInt for population count (supports national-level values)
+  - Source tracking (INSEE, Eurostat, etc.) and notes fields
+  - Created migration `1706832000000-CreatePopulation.ts`
+  - Added indexes on year and areaId for efficient queries
+  - Created comprehensive unit tests
+
 ---
 
 ## In Progress
 
-_Task 0.3 (Source French département boundary data) ready to start_
+- ✅ **Task 2.3**: Create `crime_categories` table with canonical names
+  - Created `CrimeCategory` entity with UUID primary key
+  - Created new `crimes/` module structure for crime-related entities
+  - Defined `CrimeSeverity` enum (critical, high, medium, low)
+  - Defined `CrimeCategoryGroup` enum (violent_crimes, property_crimes, drug_offenses, other_offenses)
+  - Added French localization support (nameFr column)
+  - Added sortOrder for consistent UI display ordering
+  - Added isActive flag for soft-deprecation support
+  - Created migration `1706918400000-CreateCrimeCategories.ts`
+  - Added indexes on code (unique), severity, categoryGroup, sortOrder
+  - Created comprehensive unit tests (17 test cases)
+  - Registered CrimesModule in AppModule
+
+---
+
+## In Progress
+
+_Task 2.4 (Create data_sources table) ready to start_
 
 ---
 

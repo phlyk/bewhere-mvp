@@ -11,7 +11,7 @@
 
 ## Phase 1: Infrastructure Setup
 
-- [ ] 1.1 Initialize Docker Compose with postgres:16-postgis service
+- [x] 1.1 Initialize Docker Compose with postgres:16-postgis service
 - [ ] 1.2 Create NestJS project scaffold
 - [ ] 1.3 Configure TypeORM with PostGIS types
 - [ ] 1.4 Set up separate `etl/` directory structure

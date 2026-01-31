@@ -1,0 +1,12 @@
+/**
+ * Migrations directory for TypeORM.
+ *
+ * Migration files are generated using:
+ *   npm run migration:generate -- src/migrations/<MigrationName>
+ *
+ * Run migrations using:
+ *   npm run migration:run
+ *
+ * Revert last migration using:
+ *   npm run migration:revert
+ */

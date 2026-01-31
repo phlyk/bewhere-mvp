@@ -12,6 +12,18 @@ data/
 data_excerpts/
 etl-in/
 
+# Docker
+postgres_data/
+
+# Node.js
+node_modules/
+dist/
+.npm/
+npm-debug.log*
+
+# IDE
+.idea/
+
 # OS Fluff
 .DS_Store
 Thumbs.db
