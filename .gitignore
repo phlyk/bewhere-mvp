@@ -1,0 +1,17 @@
+# Sensitive files
+.env
+
+# Python bits
+.python-version
+.venv/
+__pycache__/
+*.pyc
+
+# Data files
+data/
+data_excerpts/
+etl-in/
+
+# OS Fluff
+.DS_Store
+Thumbs.db
