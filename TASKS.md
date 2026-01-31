@@ -2,7 +2,7 @@
 
 ## Phase 0: Foundation & Research
 
-- [ ] 0.1 Define canonical crime category taxonomy (15-20 categories)
+- [x] 0.1 Define canonical crime category taxonomy (15-20 categories)
 - [ ] 0.2 Map French crime categories (47+) to canonical taxonomy
 - [ ] 0.3 Source French département boundary data (Mapbox API or data.gouv.fr GeoJSON)
 - [ ] 0.4 Source INSEE population data (département-level, yearly)

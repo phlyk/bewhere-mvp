@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026
+Last Updated: January 31, 2026
 
 ---
 
@@ -15,7 +15,7 @@ Last Updated: February 1, 2026
 - ✅ Created TASKS.md with granular implementation breakdown
 - ✅ Created DESIGN_DECISIONS.md with finalized decisions
 - ✅ Analyzed French data structure:
-  - `datagouv-juin-2012-*.csv`: D\u00e9partement-level, 47+ crime categories, 111 rows
+  - `datagouv-juin-2012-*.csv`: Département-level, 47+ crime categories, 111 rows
   - `datagouv-serieschrono.csv`: Time series, monthly data (2016+), 36,715 rows
 
 **Phase 0 - Foundation & Research:**
@@ -26,11 +26,19 @@ Last Updated: February 1, 2026
   - Identified mapping strategy: État 4001 categories → canonical taxonomy
   - Documented ETL considerations (encoding, parsing, decimal handling)
 
+- ✅ **Task 0.1**: Define canonical crime category taxonomy → [docs/CRIME_TAXONOMY.md](docs/CRIME_TAXONOMY.md)
+  - Defined 20 canonical categories (HOMICIDE through OTHER)
+  - Documented category definitions with includes/excludes
+  - Established severity levels (Critical, High, Medium, Low)
+  - Created category hierarchy (Violent Crimes, Property Crimes, Drug Offenses, etc.)
+  - Provided database schema and API response examples
+  - Aligned with international standards (UNODC ICCS, Eurostat, FBI UCR)
+
 ---
 
 ## In Progress
 
-_Task 0.1 (Define canonical taxonomy) ready to start_
+_Task 0.2 (Map French crime categories to canonical taxonomy) ready to start_
 
 ---
 
