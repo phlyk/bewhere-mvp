@@ -34,11 +34,19 @@ Last Updated: January 31, 2026
   - Provided database schema and API response examples
   - Aligned with international standards (UNODC ICCS, Eurostat, FBI UCR)
 
+- ✅ **Task 0.2**: Map French crime categories to canonical taxonomy → [docs/CATEGORY_MAPPINGS.md](docs/CATEGORY_MAPPINGS.md)
+  - Mapped all 95 active État 4001 indices to 20 canonical categories
+  - Documented 4 unused indices (96, 97, 99, 100) for ETL skip logic
+  - Created time series indicator mappings with sub-indicator handling
+  - Provided TypeScript ETL implementation code (lookup tables)
+  - Documented mapping rationale and design decisions
+  - Coverage: 100% of active indices mapped, 19/20 categories populated (DOMESTIC_VIOLENCE has no direct mapping due to historical data limitations)
+
 ---
 
 ## In Progress
 
-_Task 0.2 (Map French crime categories to canonical taxonomy) ready to start_
+_Task 0.3 (Source French département boundary data) ready to start_
 
 ---
 
