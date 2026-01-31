@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: January 31, 2026
+Last Updated: February 1, 2026
 
 ---
 
@@ -94,10 +94,6 @@ Last Updated: January 31, 2026
   - Added indexes on year and areaId for efficient queries
   - Created comprehensive unit tests
 
----
-
-## In Progress
-
 - ✅ **Task 2.3**: Create `crime_categories` table with canonical names
   - Created `CrimeCategory` entity with UUID primary key
   - Created new `crimes/` module structure for crime-related entities
@@ -111,11 +107,83 @@ Last Updated: January 31, 2026
   - Created comprehensive unit tests (17 test cases)
   - Registered CrimesModule in AppModule
 
+- ✅ **Task 2.4**: Create `data_sources` table (name, url, description, update_frequency)
+  - Created `DataSource` entity with UUID primary key
+  - Defined `UpdateFrequency` enum (realtime, daily, weekly, monthly, quarterly, yearly, irregular, historical)
+  - Added comprehensive metadata fields: code, name, nameFr, description, url, apiEndpoint
+  - Added provider, license, attribution fields for data provenance
+  - Added countryCode, dataStartYear, dataEndYear for data coverage tracking
+  - Added isActive flag and lastImportedAt timestamp for ETL scheduling
+  - Added JSONB metadata column for source-specific configuration
+  - Created migration `1707004800000-CreateDataSources.ts`
+  - Added indexes on code (unique), updateFrequency, countryCode, isActive
+  - Created comprehensive unit tests (18 test cases)
+  - Registered entity in EtlModule
+
+- ✅ **Task 2.5**: Create `crime_observations` table with foreign keys
+  - Created `CrimeObservation` entity with UUID primary key
+  - Defined `TimeGranularity` enum (monthly, quarterly, yearly)
+  - Added foreign keys to `administrative_areas`, `crime_categories`, `data_sources` (cascade delete)
+  - Added temporal fields: year, month (nullable for yearly data)
+  - Added crime statistics: count (integer), ratePer100k (decimal 12,4)
+  - Added audit fields: populationUsed, isValidated, notes
+  - Created migration `1707091200000-CreateCrimeObservations.ts`
+  - Added composite unique constraint on (areaId, categoryId, dataSourceId, year, month)
+  - Added individual indexes on areaId, categoryId, dataSourceId, year
+  - Added composite index for common queries (areaId, categoryId, year, dataSourceId)
+  - Added time series index (year, month)
+  - Added partial index for unvalidated records (isValidated = false)
+  - Created comprehensive unit tests (27 test cases)
+  - Registered entity in CrimesModule
+
+- ✅ **Task 2.7**: Create `etl_runs` table for ETL audit logging
+  - Created `EtlRun` entity with UUID primary key
+  - Defined `EtlRunStatus` enum (running, completed, completed_with_warnings, failed, cancelled)
+  - Added foreign key to `data_sources` (cascade delete)
+  - Added run metadata: runName, sourceUrl for debugging/re-runs
+  - Added timestamps: startedAt, completedAt, durationMs (computed)
+  - Added row counters: rowsExtracted, rowsTransformed, rowsLoaded, rowsSkipped
+  - Added error tracking: errorCount, warningCount, errorMessages (JSONB), warningMessages (JSONB)
+  - Added JSONB metadata column for extensibility
+  - Created migration `1707264000000-CreateEtlRuns.ts`
+  - Added composite index on (dataSourceId, startedAt) for source run history
+  - Added indexes on status, startedAt for filtering
+  - Added partial indexes on running/failed runs for monitoring
+  - Created comprehensive unit tests (46 test cases)
+  - Registered entity in EtlModule
+
+- ✅ **Task 2.6**: Create `category_mappings` table (already completed)
+  - Created `CategoryMapping` entity with UUID primary key
+  - Foreign keys to `data_sources` and `crime_categories` (cascade delete)
+  - Composite unique constraint on (dataSourceId, sourceCategory)
+  - Source metadata fields: sourceCategory, sourceCategoryName, confidence
+  - Created migration `1707177600000-CreateCategoryMappings.ts`
+  - Added indexes on composite lookup, canonicalCategoryId, sourceCategory
+  - Created comprehensive unit tests
+
+- ✅ **Task 2.8**: Add spatial indexes on geometry columns (already in 2.1)
+  - Spatial index `IDX_administrative_areas_geometry` already created in migration
+  - Uses GIST index for efficient PostGIS geometric queries
+
+- ✅ **Task 2.9**: Add composite indexes on (area_id, category_id, year, data_source_id) (already in 2.5)
+  - Composite index `IDX_crime_observations_composite` already created in migration
+  - Covers primary API query patterns (area + category + year + source)
+
+- ✅ **Task 2.10**: Seed canonical crime categories (20 categories)
+  - Created seed migration `1707350400000-SeedCrimeCategories.ts`
+  - Seeded 20 canonical categories aligned with docs/CRIME_TAXONOMY.md
+  - Categories grouped into: violent_crimes (8), property_crimes (7), drug_offenses (2), other_offenses (3)
+  - Severity levels: critical (6), high (6), medium (4), low (4)
+  - French translations (nameFr) included for localization
+  - sortOrder 1-20 for consistent UI display
+  - All categories set as isActive = true
+  - Created comprehensive unit tests (20 test cases)
+
 ---
 
 ## In Progress
 
-_Task 2.4 (Create data_sources table) ready to start_
+_Task 2.11 (Write schema migration tests) ready to start_
 
 ---
 

@@ -26,7 +26,7 @@
 - [ ] 2.4 Create `data_sources` table (name, url, description, update_frequency)
 - [ ] 2.5 Create `crime_observations` table with foreign keys (includes data_source_id, count, rate_per_100k)
 - [ ] 2.6 Create `category_mappings` table (data_source_id, source_category, canonical_category_id)
-- [ ] 2.7 Create `etl_runs` table (dataset_name, source_url, started_at, completed_at, status, rows_processed, errors)
+- [x] 2.7 Create `etl_runs` table (dataset_name, source_url, started_at, completed_at, status, rows_processed, errors)
 - [ ] 2.8 Add spatial indexes on geometry columns
 - [ ] 2.9 Add composite indexes on (area_id, category_id, year, data_source_id)
 - [ ] 2.10 Seed canonical crime categories (15-20 categories)

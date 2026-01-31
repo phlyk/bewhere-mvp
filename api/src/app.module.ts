@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AreasModule } from './areas';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
-import { AreasModule } from './areas';
 import { CrimesModule } from './crimes';
+import { EtlModule } from './etl';
 import { HealthModule } from './health/health.module';
 
 @Module({
@@ -36,6 +37,7 @@ import { HealthModule } from './health/health.module';
     // Feature modules
     AreasModule,
     CrimesModule,
+    EtlModule,
     HealthModule,
   ],
 })

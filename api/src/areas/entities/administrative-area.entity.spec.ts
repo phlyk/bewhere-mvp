@@ -1,8 +1,8 @@
-import {
-  AdministrativeArea,
-  AdminLevel,
-} from './administrative-area.entity';
 import { MultiPolygon } from 'geojson';
+import {
+    AdministrativeArea,
+    AdminLevel,
+} from './administrative-area.entity';
 
 describe('AdministrativeArea Entity', () => {
   describe('AdminLevel enum', () => {

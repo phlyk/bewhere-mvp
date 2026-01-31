@@ -1,5 +1,5 @@
-import { Population } from './population.entity';
 import { AdministrativeArea, AdminLevel } from './administrative-area.entity';
+import { Population } from './population.entity';
 
 describe('Population Entity', () => {
   describe('entity structure', () => {

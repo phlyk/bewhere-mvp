@@ -1,7 +1,7 @@
 import {
-  CrimeCategory,
-  CrimeCategoryGroup,
-  CrimeSeverity,
+    CrimeCategory,
+    CrimeCategoryGroup,
+    CrimeSeverity,
 } from './crime-category.entity';
 
 describe('CrimeCategory Entity', () => {
