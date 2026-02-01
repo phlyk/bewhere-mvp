@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026 (Task 11.2 ETL Runbook Complete)
+Last Updated: February 1, 2026 (Task 11.4 Data Gaps Documentation Complete)
 
 ---
 
@@ -780,6 +780,48 @@ Last Updated: February 1, 2026 (Task 11.2 ETL Runbook Complete)
   - **Monitoring & Troubleshooting**: Health checks, performance monitoring, expected run times
   - **Common Issues & Solutions**: 6 common problems (Latin-1 encoding, Corsican codes, duplicates, memory, rates)
   - **Appendix**: Environment variables, file locations, related documentation links
+
+- ✅ **Task 11.4**: Document known data gaps and limitations
+  - Created comprehensive `docs/DATA_GAPS_AND_LIMITATIONS.md` (450+ lines)
+  - **Executive Summary**: Quick reference table of all limitation types with mitigation strategies
+  - **Geographic Coverage Gaps**:
+    - Metropolitan France (96 départements) - fully documented
+    - Overseas territories (DOM-TOM) - partial coverage matrix with per-source availability
+    - Corsica special codes (2A/2B) handling documented
+  - **Temporal Coverage Gaps**:
+    - Time range limitations (2016-2024 only, 9 years)
+    - No pre-2016 data due to methodology change
+    - 2024 data potentially incomplete
+    - Missing year-département combinations documented
+  - **Category Mapping Limitations**:
+    - 107→20 aggregation information loss documented with specific examples
+    - ASSAULT heterogeneity concern (physical violence + threats merged)
+    - BURGLARY_RESIDENTIAL includes home invasion
+    - DOMESTIC_VIOLENCE category unmapped (historical data limitation)
+    - Unused État 4001 indices (96, 97, 99, 100)
+  - **Data Quality Issues**:
+    - Counting unit variations (infractions vs. victimes vs. mis en cause)
+    - Dark figure of crime with estimated reporting rates by crime type
+    - Seasonal adjustment (CVS-CJO) applied only to national data
+    - Population denominator issues (legal population vs. de facto)
+  - **Data Source Gaps**:
+    - État 4001 limitations (police-only, metropolitan-only, recorded not solved)
+    - Time series limitations (annual département only, indicator subset)
+    - Population data limitations (embedded, not live API)
+  - **Rate Calculation Caveats**:
+    - Small population volatility (Lozère, Creuse, Hautes-Alpes flagged)
+    - Population lag and category mixing concerns
+  - **Comparison Limitations**:
+    - Valid vs. invalid cross-year, cross-area, cross-category comparisons
+  - **Known Data Anomalies**:
+    - Category recording changes (2017 sexual harassment, 2018 online fraud)
+    - COVID-19 2020 impact (lockdown effects by category)
+  - **API Response Considerations**: Missing data representation, pagination limits
+  - **Recommendations for Users**:
+    - Exploratory analysis best practices
+    - Research use caveats and methodology notes
+    - Dashboard/reporting guidance with attribution requirements
+  - **Future Enhancements**: Prioritized roadmap for post-MVP improvements
 
 ---
 
