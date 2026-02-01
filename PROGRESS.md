@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026 (Task 11.1 API Documentation Complete)
+Last Updated: February 1, 2026 (Task 11.2 ETL Runbook Complete)
 
 ---
 
@@ -744,6 +744,42 @@ Last Updated: February 1, 2026 (Task 11.1 API Documentation Complete)
   - Next steps guidance for new users
   - Updated README.md quick start section to reference guide
   - Added QUICKSTART.md to Documentation section in README
+
+- ✅ **Task 11.7**: Clean up console warnings and logs
+  - Replaced `console.log` with NestJS `Logger` in `api/src/main.ts`
+    - Created `Bootstrap` logger context for structured logging
+    - Startup messages now use proper NestJS logging infrastructure
+  - Removed debug `console.log` from `web/src/App.tsx`
+    - Removed area selection debug output ("Selected area: ...") from handleAreaClick
+  - Removed `console.log` from migration `1707350400000-SeedCrimeCategories.ts`
+    - Migrations should run silently; TypeORM handles migration logging
+  - Retained appropriate `console.error` statements:
+    - `ErrorBoundary.tsx`: Error boundary logging (React best practice)
+    - `MapContainer.tsx`: Mapbox initialization error logging (debugging aid)
+  - Retained test file `console.log` statements:
+    - `validation.e2e-spec.ts`: Performance metrics output (appropriate for tests)
+  - Retained JSDoc example code (in comments, not executed):
+    - `departements.pipeline.ts` and `population.pipeline.ts`
+  - Verified TypeScript compilation passes in both `api/` and `web/`
+
+- ✅ **Task 11.2**: Create ETL runbook
+  - Created comprehensive `docs/ETL_RUNBOOK.md` (700+ lines)
+  - **Quick Reference**: Essential commands, pipeline execution order
+  - **Daily Operations**: Status checks, log viewing, data integrity verification
+  - **Running ETL Pipelines**: Full pipeline run, individual pipelines, dry run/force options
+  - **Re-running Failed Jobs**: 
+    - Identifying failures (status, logs, database queries)
+    - Recovery procedures for 5 common scenarios (network, DB, FK constraints, partial load, data quality)
+    - Rolling back failed runs
+  - **Adding a New Dataset**: Complete 10-step guide
+    - Analyzing source data, creating pipeline directory structure
+    - Implementing extractor, transformer, loader
+    - Creating pipeline orchestrator
+    - Registering pipeline, adding CLI commands, category mappings, testing
+  - **Updating Population Data**: When to update, step-by-step extraction and formatting
+  - **Monitoring & Troubleshooting**: Health checks, performance monitoring, expected run times
+  - **Common Issues & Solutions**: 6 common problems (Latin-1 encoding, Corsican codes, duplicates, memory, rates)
+  - **Appendix**: Environment variables, file locations, related documentation links
 
 ---
 

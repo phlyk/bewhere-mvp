@@ -238,12 +238,6 @@ export class SeedCrimeCategories1707350400000 implements MigrationInterface {
         true
       )
     `);
-
-    // Log the seeded categories count
-    const result = await queryRunner.query(
-      `SELECT COUNT(*) as count FROM "crime_categories"`
-    );
-    console.log(`Seeded ${result[0].count} canonical crime categories`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

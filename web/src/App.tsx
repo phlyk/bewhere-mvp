@@ -26,7 +26,6 @@ function App() {
       dispatch(setMapSelectedAreaId(area.id));
       // Toggle the area in the filter selection
       dispatch(toggleAreaId(area.id));
-      console.log('Selected area:', area.name, `(${area.code})`);
     } else {
       dispatch(setMapSelectedAreaId(null));
     }

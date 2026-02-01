@@ -388,6 +388,7 @@ MIT
 
 - [Quick Start Guide](docs/QUICKSTART.md) - Get running in 5 minutes
 - [API Documentation](docs/API.md) - Complete API reference with examples
+- [ETL Runbook](docs/ETL_RUNBOOK.md) - Operations guide for ETL pipelines
 - [Project Plan](PLAN.md) - Architecture and scope
 - [Task Breakdown](TASKS.md) - Implementation tasks
 - [Progress](PROGRESS.md) - Current status
