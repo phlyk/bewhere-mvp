@@ -49,13 +49,13 @@
 
 ### Dataset 1: Département Monthly Snapshots (`datagouv-juin-2012-*.csv`)
 
-- [ ] 4.1.1 Create CSV extractor (handle encoding, département columns)
-- [ ] 4.1.2 Implement category mapper (47+ French categories → 15-20 canonical)
-- [ ] 4.1.3 Implement département resolver (column name → area_id)
-- [ ] 4.1.4 Aggregate monthly data to yearly totals
-- [ ] 4.1.5 Calculate rate_per_100k using INSEE population
-- [ ] 4.1.6 Write loader with upsert logic (same source = replace)
-- [ ] 4.1.7 Create dataset validation tests
+- [x] 4.1.1 Create CSV extractor (handle encoding, département columns)
+- [x] 4.1.2 Implement category mapper (107 French categories → 20 canonical)
+- [x] 4.1.3 Implement département resolver (column name → area_id)
+- [x] 4.1.4 Aggregate monthly data to yearly totals
+- [x] 4.1.5 Calculate rate_per_100k using INSEE population
+- [x] 4.1.6 Write loader with upsert logic (same source = replace)
+- [x] 4.1.7 Create dataset validation tests
 - [ ] 4.1.8 Run full pipeline and verify row counts
 
 ### Dataset 2: Time Series (`datagouv-serieschrono.csv`)
