@@ -315,13 +315,70 @@ npm test -- --coverage
 
 ## API Endpoints
 
+> **📖 See [docs/API.md](docs/API.md) for complete API documentation with examples.**
+
+### Health
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/areas` | List administrative areas |
-| GET | `/areas/:id` | Get area with geometry |
-| GET | `/categories` | List crime categories |
-| GET | `/observations` | Query crime observations |
+| GET | `/health` | Basic health check |
+| GET | `/health/ready` | Readiness check (includes database) |
+
+### Administrative Areas
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/areas` | List areas (filter by level, parent) |
+| GET | `/areas/geojson` | Get areas as GeoJSON FeatureCollection |
+| GET | `/areas/:id` | Get area detail with geometry |
+
+### Crime Categories
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/categories` | List crime categories (filter by severity, group) |
+| GET | `/categories/:id` | Get category details |
+
+### Crime Observations
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/observations` | Query observations (filter by area, category, year) |
+| GET | `/observations/:id` | Get observation details |
+
+### Comparison
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/compare/areas` | Compare two areas for a given year |
+| GET | `/compare/years` | Compare two years for a given area |
+| GET | `/compare/sources` | Compare two data sources |
+
+### Quick Examples
+
+```bash
+# Health check
+curl http://localhost:3000/health
+
+# List all départements
+curl "http://localhost:3000/areas?level=department"
+
+# Get GeoJSON for map
+curl "http://localhost:3000/areas/geojson?level=department"
+
+# Query crime observations
+curl "http://localhost:3000/observations?areaCode=75&year=2023"
+
+# Compare Paris vs Marseille
+curl "http://localhost:3000/compare/areas?areaCodeA=75&areaCodeB=13&year=2023"
+```
+
+### Swagger UI
+
+Interactive API documentation is available at:
+```
+http://localhost:3000/api/docs
+```
 
 ## License
 
@@ -330,6 +387,7 @@ MIT
 ## Documentation
 
 - [Quick Start Guide](docs/QUICKSTART.md) - Get running in 5 minutes
+- [API Documentation](docs/API.md) - Complete API reference with examples
 - [Project Plan](PLAN.md) - Architecture and scope
 - [Task Breakdown](TASKS.md) - Implementation tasks
 - [Progress](PROGRESS.md) - Current status

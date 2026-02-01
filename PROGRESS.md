@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026 (Phase 11 Documentation Started)
+Last Updated: February 1, 2026 (Task 11.1 API Documentation Complete)
 
 ---
 
@@ -711,6 +711,20 @@ Last Updated: February 1, 2026 (Phase 11 Documentation Started)
   - Response time consistency validation (variance < 200ms)
 
 **Phase 11: Documentation & Polish - IN PROGRESS**
+
+- ✅ **Task 11.1**: Document API endpoints with examples (Swagger + README)
+  - Created comprehensive `docs/API.md` (500+ lines) with full API reference
+  - Documented all endpoints: health (2), areas (3), categories (2), observations (2), comparison (3)
+  - Added curl examples for every endpoint with realistic query parameters
+  - Documented all query parameters with types, defaults, and descriptions
+  - Provided example responses with realistic JSON payloads
+  - Documented data types: AdminLevel, CrimeSeverity, TimeGranularity
+  - Added error codes reference and response format documentation
+  - Included practical use-case examples (choropleth maps, trends, comparisons)
+  - Updated README.md API Endpoints section with comprehensive table
+  - Added quick example commands in README for common operations
+  - Linked Swagger UI documentation (http://localhost:3000/api/docs)
+  - Added API.md to Documentation section in README
 
 - ✅ **Task 11.5**: Add docker-compose quick start guide
   - Created comprehensive `docs/QUICKSTART.md` (350+ lines)
