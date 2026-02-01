@@ -1,0 +1,43 @@
+time="2026-02-01T23:21:21+01:00" level=warning msg="/Users/testimus-maximus/dev/be-where/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image be-where-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 546B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 676B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 295B done
+#4 DONE 0.0s
+
+#5 [builder 1/6] FROM docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8
+#5 resolve docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8 done
+#5 DONE 0.0s
+
+#6 [builder 2/6] WORKDIR /app
+#6 CACHED
+
+#7 [internal] load build context
+#7 transferring context: 5.53kB done
+#7 DONE 0.0s
+
+#8 [builder 3/6] COPY package*.json ./
+#8 DONE 0.0s
+
+#9 [production 3/7] RUN addgroup -g 1001 -S nodejs &&     adduser -S nestjs -u 1001
+#9 DONE 0.1s
+
+#10 [builder 4/6] RUN npm ci
+#10 ...
+
+#11 [production 4/7] COPY package*.json ./
+#11 DONE 0.0s
+
+#12 [production 5/7] RUN npm ci --only=production && npm cache clean --force
+#12 0.137 npm warn config only Use `--omit=dev` to omit dev dependencies from the install.
+

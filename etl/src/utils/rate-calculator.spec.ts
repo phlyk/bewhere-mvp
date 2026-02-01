@@ -3,11 +3,11 @@
  */
 
 import {
-    calculateMonthlyAverage,
-    calculatePercentageChange,
-    calculateRatePer100k,
-    convertPer1kTo100k,
-    sumMonthlyToYearly,
+  calculateMonthlyAverage,
+  calculatePercentageChange,
+  calculateRatePer100k,
+  convertPer1kTo100k,
+  sumMonthlyToYearly,
 } from './rate-calculator';
 
 describe('Rate Calculator', () => {

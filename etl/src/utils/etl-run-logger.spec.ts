@@ -4,10 +4,10 @@
 
 import { DataSource } from 'typeorm';
 import {
-    createEtlRunLogger,
-    EtlRunLogger,
-    EtlRunStatus,
-    StartRunOptions,
+  createEtlRunLogger,
+  EtlRunLogger,
+  EtlRunStatus,
+  StartRunOptions,
 } from './etl-run-logger';
 
 // Mock logger

@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSourcesController } from './data-sources.controller';
+import { DataSourcesService } from './data-sources.service';
 import { CategoryMapping, DataSource, EtlRun } from './entities';
 
 /**
@@ -9,10 +11,13 @@ import { CategoryMapping, DataSource, EtlRun } from './entities';
  * - DataSource entity (external data source metadata)
  * - CategoryMapping entity (source→canonical category mappings)
  * - EtlRun entity (ETL run history and status)
+ * - DataSourcesController/Service for GET /data-sources endpoints
  * - Future: EtlService for orchestrating data imports
  */
 @Module({
   imports: [TypeOrmModule.forFeature([CategoryMapping, DataSource, EtlRun])],
-  exports: [TypeOrmModule],
+  controllers: [DataSourcesController],
+  providers: [DataSourcesService],
+  exports: [TypeOrmModule, DataSourcesService],
 })
 export class EtlModule {}

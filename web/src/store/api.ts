@@ -198,6 +198,8 @@ export const api = createApi({
         url: '/areas',
         params: params || {},
       }),
+      transformResponse: (response: { data: AdministrativeArea[]; total: number } | AdministrativeArea[]) =>
+        Array.isArray(response) ? response : response.data,
       providesTags: ['Areas'],
     }),
 
@@ -217,6 +219,8 @@ export const api = createApi({
     // Categories endpoints
     getCategories: builder.query<CrimeCategory[], void>({
       query: () => '/categories',
+      transformResponse: (response: { data: CrimeCategory[]; total: number } | CrimeCategory[]) =>
+        Array.isArray(response) ? response : response.data,
       providesTags: ['Categories'],
     }),
 
@@ -228,6 +232,8 @@ export const api = createApi({
     // Data sources endpoints
     getDataSources: builder.query<DataSource[], void>({
       query: () => '/data-sources',
+      transformResponse: (response: { data: DataSource[]; total: number } | DataSource[]) =>
+        Array.isArray(response) ? response : response.data,
       providesTags: ['DataSources'],
     }),
 

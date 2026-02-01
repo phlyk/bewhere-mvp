@@ -35,7 +35,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-bewhere}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bewhere_dev}
       POSTGRES_DB: ${POSTGRES_DB:-bewhere}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173,http://localhost:5174,http://localhost:5175}
     ports:
       - "${API_PORT:-3000}:3000"
     depends_on:

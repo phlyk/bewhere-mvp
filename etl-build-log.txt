@@ -1,0 +1,72 @@
+time="2026-02-01T23:14:32+01:00" level=warning msg="/Users/testimus-maximus/dev/be-where/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Image be-where-etl Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 522B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 797B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [builder 1/6] FROM docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8
+#5 resolve docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 1.04MB 0.5s done
+#6 DONE 0.5s
+
+#7 [production 7/8] RUN mkdir -p /app/cache && chown etl:nodejs /app/cache
+#7 CACHED
+
+#8 [builder 3/6] COPY package*.json ./
+#8 CACHED
+
+#9 [builder 2/6] WORKDIR /app
+#9 CACHED
+
+#10 [builder 5/6] COPY . .
+#10 CACHED
+
+#11 [production 6/8] COPY --from=builder /app/dist ./dist
+#11 CACHED
+
+#12 [production 3/8] RUN addgroup -g 1001 -S nodejs &&     adduser -S etl -u 1001
+#12 CACHED
+
+#13 [production 4/8] COPY package*.json ./
+#13 CACHED
+
+#14 [builder 4/6] RUN npm ci
+#14 CACHED
+
+#15 [production 5/8] RUN npm ci --only=production && npm cache clean --force
+#15 CACHED
+
+#16 [builder 6/6] RUN npm run build
+#16 CACHED
+
+#17 [production 8/8] RUN chown -R etl:nodejs /app
+#17 CACHED
+
+#18 exporting to image
+#18 exporting layers done
+#18 exporting manifest sha256:4715f8858aa22b2bb7fee08a48174555c47e5590d3173aec1482cf0a47d7151a done
+#18 exporting config sha256:a8040d057d9bc6342fb74f806febc96b61d2b40d80be55727d44e7e41ef2b559 done
+#18 exporting attestation manifest sha256:9ca479b156c4256e0c51d281dc776cbf5efa49ff91c09b090b36be105f17ddf2
+#18 exporting attestation manifest sha256:9ca479b156c4256e0c51d281dc776cbf5efa49ff91c09b090b36be105f17ddf2 done
+#18 exporting manifest list sha256:2c5fe44ae3b8bc222d37138af260947b3a5eb0d91b6a42109100f45cd42a4675 done
+#18 naming to docker.io/library/be-where-etl:latest done
+#18 unpacking to docker.io/library/be-where-etl:latest done
+#18 DONE 0.0s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image be-where-etl Built 

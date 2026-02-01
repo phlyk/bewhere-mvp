@@ -36,8 +36,13 @@ async function bootstrap() {
   );
 
   // Enable CORS for local development
+  // Support comma-separated origins for flexibility
+  const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173,http://localhost:5174,http://localhost:5175')
+    .split(',')
+    .map((origin) => origin.trim());
+  
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: corsOrigins.length === 1 ? corsOrigins[0] : corsOrigins,
     credentials: true,
   });
 

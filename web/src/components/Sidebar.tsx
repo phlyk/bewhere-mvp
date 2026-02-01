@@ -24,9 +24,9 @@ import {
 } from '../store';
 import { ComparePanel } from './ComparePanel';
 import { CrimeCategorySelector } from './CrimeCategorySelector';
-import { DataFetchStatus } from './LoadingStates';
 import { DataSourceSelector } from './DataSourceSelector';
 import { DisplayModeToggle, type DisplayMode } from './DisplayModeToggle';
+import { DataFetchStatus } from './LoadingStates';
 import { RegionDepartmentSelector } from './RegionDepartmentSelector';
 import { ViewModeToggle } from './ViewModeToggle';
 import { YearRangeSelector } from './YearRangeSelector';

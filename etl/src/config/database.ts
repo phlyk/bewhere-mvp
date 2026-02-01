@@ -6,7 +6,7 @@
  */
 
 import * as dotenv from 'dotenv';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 // Load environment variables
