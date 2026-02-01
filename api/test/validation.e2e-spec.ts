@@ -8,11 +8,11 @@
  * - Task 10.8: Performance test: query times for full dataset
  */
 
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
 import { DataSource } from 'typeorm';
+import { AppModule } from '../src/app.module';
 
 describe('Data Validation E2E Tests (Phase 10)', () => {
   let app: INestApplication;

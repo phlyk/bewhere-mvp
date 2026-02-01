@@ -13,38 +13,38 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import RemoveIcon from '@mui/icons-material/Remove';
-import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import StorageIcon from '@mui/icons-material/Storage';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import {
-  Alert,
-  Box,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
-  FormControl,
-  FormLabel,
-  IconButton,
-  Skeleton,
-  Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tabs,
-  Tooltip,
-  Typography,
+    Alert,
+    Box,
+    Card,
+    CardContent,
+    Chip,
+    Divider,
+    FormControl,
+    FormLabel,
+    IconButton,
+    Skeleton,
+    Tab,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Tabs,
+    Tooltip,
+    Typography,
 } from '@mui/material';
 import { useCallback, useMemo, useState, type SyntheticEvent } from 'react';
 import {
-  useCompareAreasQuery,
-  useCompareSourcesQuery,
-  useCompareYearsQuery,
-  useGetAreasQuery,
-  useGetDataSourcesQuery,
-  type SourceComparisonItem,
+    useCompareAreasQuery,
+    useCompareSourcesQuery,
+    useCompareYearsQuery,
+    useGetAreasQuery,
+    useGetDataSourcesQuery,
+    type SourceComparisonItem,
 } from '../store';
 import { ComparisonChart } from './ComparisonChart';
 import { RegionDepartmentSelector } from './RegionDepartmentSelector';

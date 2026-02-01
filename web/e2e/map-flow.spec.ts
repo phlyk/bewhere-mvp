@@ -6,7 +6,7 @@
  * Task 10.3: Toggle count vs rate display
  */
 
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test.describe('Map Flow - Task 10.1', () => {
   test.beforeEach(async ({ page }) => {

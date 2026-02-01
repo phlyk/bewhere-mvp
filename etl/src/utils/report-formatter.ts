@@ -175,11 +175,8 @@ export function getStatusIcon(
   useColor = true,
 ): string {
   const statusMap: Record<string, { icon: string; color: string }> = {
-    completed: { icon: '✓', color: colors.green },
     [EtlRunStatus.COMPLETED]: { icon: '✓', color: colors.green },
-    completed_with_warnings: { icon: '⚠', color: colors.yellow },
     [EtlRunStatus.COMPLETED_WITH_WARNINGS]: { icon: '⚠', color: colors.yellow },
-    failed: { icon: '✗', color: colors.red },
     [EtlRunStatus.FAILED]: { icon: '✗', color: colors.red },
     [EtlRunStatus.CANCELLED]: { icon: '○', color: colors.gray },
     [EtlRunStatus.RUNNING]: { icon: '●', color: colors.blue },
@@ -201,14 +198,11 @@ export function getStatusLabel(
   useColor = true,
 ): string {
   const statusMap: Record<string, { label: string; color: string }> = {
-    completed: { label: 'COMPLETED', color: colors.green },
     [EtlRunStatus.COMPLETED]: { label: 'COMPLETED', color: colors.green },
-    completed_with_warnings: { label: 'COMPLETED WITH WARNINGS', color: colors.yellow },
     [EtlRunStatus.COMPLETED_WITH_WARNINGS]: {
       label: 'COMPLETED WITH WARNINGS',
       color: colors.yellow,
     },
-    failed: { label: 'FAILED', color: colors.red },
     [EtlRunStatus.FAILED]: { label: 'FAILED', color: colors.red },
     [EtlRunStatus.CANCELLED]: { label: 'CANCELLED', color: colors.gray },
     [EtlRunStatus.RUNNING]: { label: 'RUNNING', color: colors.blue },

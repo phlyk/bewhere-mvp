@@ -51,12 +51,12 @@ export function calculatePercentageChange(oldValue: number, newValue: number): n
 }
 
 /**
- * Aggregate monthly counts to yearly total
+ * Sum monthly counts to yearly total
  *
  * @param monthlyCounts - Array of monthly counts (12 months)
  * @returns Yearly total
  */
-export function aggregateMonthlyToYearly(monthlyCounts: number[]): number {
+export function sumMonthlyToYearly(monthlyCounts: number[]): number {
   if (monthlyCounts.length === 0) {
     return 0;
   }

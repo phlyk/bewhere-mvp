@@ -25,7 +25,7 @@ export {
     MapLoading,
     SidebarLoading,
     type DataFetchStatusProps,
-    type FilterSkeletonProps,
+    type FilterSkeletonProps
 } from './LoadingStates';
 export { MapContainer, type ChoroplethConfig, type SelectedArea } from './MapContainer';
 export { MapLegend, MapLegendCompact } from './MapLegend';
@@ -33,9 +33,7 @@ export {
     RegionDepartmentSelector, type AreaOption, type RegionDepartmentSelectorProps
 } from './RegionDepartmentSelector';
 export { SIDEBAR_WIDTH, Sidebar } from './Sidebar';
-export {
-    getViewModeDescription, getViewModeLabel, ViewModeToggle, ViewModeToggleCompact, type ViewMode, type ViewModeToggleCompactProps, type ViewModeToggleProps
-} from './ViewModeToggle';
+export { ViewModeToggle, ViewModeToggleCompact, getViewModeDescription, getViewModeLabel, type ViewMode, type ViewModeToggleCompactProps, type ViewModeToggleProps } from './ViewModeToggle';
 export {
     DEFAULT_MAX_YEAR, DEFAULT_MIN_YEAR, SingleYearSelector, YearRangeSelector, type SingleYearSelectorProps, type YearRangeSelectorProps
 } from './YearRangeSelector';

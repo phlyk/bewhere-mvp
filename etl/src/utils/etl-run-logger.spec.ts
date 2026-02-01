@@ -576,7 +576,8 @@ describe('EtlRunLogger', () => {
       await etlRunLogger.updateRun({ errors: manyErrors });
 
       const queryCall = mockDataSource.query.mock.calls[0];
-      const errorMessagesJson = queryCall[1].find(
+      const queryArgs = queryCall[1] ?? [];
+      const errorMessagesJson = queryArgs.find(
         (arg: unknown) => typeof arg === 'string' && arg.includes('Error 51'),
       );
       const errorMessages = JSON.parse(errorMessagesJson as string);

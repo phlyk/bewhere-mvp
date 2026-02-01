@@ -12,36 +12,36 @@ import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import {
-  Alert,
-  Box,
-  Card,
-  CardContent,
-  FormControl,
-  FormLabel,
-  Skeleton,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-  Typography,
-  useTheme,
+    Alert,
+    Box,
+    Card,
+    CardContent,
+    FormControl,
+    FormLabel,
+    Skeleton,
+    ToggleButton,
+    ToggleButtonGroup,
+    Tooltip,
+    Typography,
+    useTheme,
 } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip as RechartsTooltip,
-  XAxis,
-  YAxis,
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    Tooltip as RechartsTooltip,
+    ResponsiveContainer,
+    XAxis,
+    YAxis,
 } from 'recharts';
 import {
-  useGetAreasQuery,
-  useGetObservationsQuery,
-  type CrimeObservation,
+    useGetAreasQuery,
+    useGetObservationsQuery,
+    type CrimeObservation,
 } from '../store';
 import { RegionDepartmentSelector } from './RegionDepartmentSelector';
 

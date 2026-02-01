@@ -7,6 +7,7 @@
 
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 // Load environment variables
 dotenv.config();
@@ -14,7 +15,7 @@ dotenv.config();
 /**
  * Database connection options
  */
-export const dataSourceOptions: DataSourceOptions = {
+export const dataSourceOptions: PostgresConnectionOptions = {
   type: 'postgres',
   host: process.env.POSTGRES_HOST || 'localhost',
   port: parseInt(process.env.POSTGRES_PORT || '5432', 10),
@@ -37,10 +38,10 @@ export const AppDataSource = new DataSource(dataSourceOptions);
  */
 export function getDatabaseConfig() {
   return {
-    host: dataSourceOptions.host as string,
-    port: dataSourceOptions.port as number,
-    user: dataSourceOptions.username as string,
+    host: dataSourceOptions.host,
+    port: dataSourceOptions.port,
+    user: dataSourceOptions.username,
     password: dataSourceOptions.password as string,
-    database: dataSourceOptions.database as string,
+    database: dataSourceOptions.database,
   };
 }
