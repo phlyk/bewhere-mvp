@@ -1,6 +1,6 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026 (Task 11.4 Data Gaps Documentation Complete)
+Last Updated: February 1, 2026 (Task 11.8 Mapbox Boundaries Research Complete - Phase 11 COMPLETE)
 
 ---
 
@@ -13,7 +13,7 @@ Last Updated: February 1, 2026 (Task 11.4 Data Gaps Documentation Complete)
 **Phase 8: UI Controls - COMPLETE**
 **Phase 9: Comparison Features - COMPLETE**
 **Phase 10: Testing & Validation - COMPLETE**
-**Phase 11: Documentation & Polish - IN PROGRESS**
+**Phase 11: Documentation & Polish - COMPLETE**
 
 ## Completed Tasks
 
@@ -822,6 +822,42 @@ Last Updated: February 1, 2026 (Task 11.4 Data Gaps Documentation Complete)
     - Research use caveats and methodology notes
     - Dashboard/reporting guidance with attribution requirements
   - **Future Enhancements**: Prioritized roadmap for post-MVP improvements
+
+- ✅ **Task 11.8**: Document Mapbox Boundaries API research findings
+  - Created comprehensive `docs/MAPBOX_BOUNDARIES_RESEARCH.md` (350+ lines)
+  - **What is Mapbox Boundaries API**: Features, boundary levels, access methods
+  - **Comparison with geo.api.gouv.fr**: Side-by-side feature table
+    - Cost (free vs. paid), coverage (France vs. global), format (GeoJSON vs. tiles)
+    - Auth requirements, rate limits, license, offline use, metadata
+    - API response comparison with code examples
+  - **Why geo.api.gouv.fr was chosen**:
+    - Zero cost for MVP (Mapbox Boundaries ~$500-1,500/mo)
+    - France-specific data quality (official IGN source, INSEE code alignment)
+    - Simpler architecture (direct GeoJSON download, PostGIS storage)
+    - Offline-first design (no external API dependency at runtime)
+    - License compatibility (Etalab Open License)
+    - Learning exercise (PostGIS geometry handling as project goal)
+  - **When Mapbox Boundaries might be useful**:
+    - European expansion (consistent NUTS-3 across EU)
+    - Global coverage (single API for all countries)
+    - High-frequency boundary updates
+    - Performance at scale (vector tiles for 35,000+ communes)
+    - Point-in-polygon real-time lookups
+  - **Technical details**:
+    - Current implementation flow (ETL → PostGIS → API → Mapbox GL JS)
+    - Hypothetical Mapbox integration architecture
+    - GeoJSON source URLs documented (geo.api.gouv.fr, Etalab, OpenDataSoft)
+  - **Cost analysis**:
+    - geo.api.gouv.fr: €0 total
+    - Mapbox Boundaries: ~$500-1,500/mo starter, $6,000-18,000/year
+    - Comparison table for MVP and European expansion scenarios
+  - **Recommendations for future expansion**:
+    - Short-term: Continue with geo.api.gouv.fr (working, free)
+    - Medium-term: Source country-specific APIs for 2-3 countries (UK, Germany, Spain)
+    - Long-term: Re-evaluate Mapbox when expanding globally or needing commune-level
+    - Alternative global sources listed (GADM, Natural Earth, OSM, Eurostat GISCO)
+  - **References**: Official docs, project files, alternative data sources
+  - Updated README.md Documentation section with link to new file
 
 ---
 

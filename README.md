@@ -390,6 +390,7 @@ MIT
 - [API Documentation](docs/API.md) - Complete API reference with examples
 - [ETL Runbook](docs/ETL_RUNBOOK.md) - Operations guide for ETL pipelines
 - [Data Gaps & Limitations](docs/DATA_GAPS_AND_LIMITATIONS.md) - Known data quality issues
+- [Mapbox Boundaries Research](docs/MAPBOX_BOUNDARIES_RESEARCH.md) - Boundary API evaluation
 - [Project Plan](PLAN.md) - Architecture and scope
 - [Task Breakdown](TASKS.md) - Implementation tasks
 - [Progress](PROGRESS.md) - Current status
