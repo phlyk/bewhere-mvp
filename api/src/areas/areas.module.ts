@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AreasController } from './areas.controller';
+import { AreasService } from './areas.service';
 import { AdministrativeArea, Population } from './entities';
 
 /**
@@ -8,11 +10,13 @@ import { AdministrativeArea, Population } from './entities';
  * This module provides:
  * - AdministrativeArea entity (départements, regions, countries)
  * - Population entity (yearly population counts per area)
- * - Future: AreasController for read-only API endpoints
- * - Future: AreasService for business logic
+ * - AreasController for read-only API endpoints
+ * - AreasService for business logic
  */
 @Module({
   imports: [TypeOrmModule.forFeature([AdministrativeArea, Population])],
-  exports: [TypeOrmModule],
+  controllers: [AreasController],
+  providers: [AreasService],
+  exports: [TypeOrmModule, AreasService],
 })
 export class AreasModule {}

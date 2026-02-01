@@ -1,12 +1,13 @@
 # BeWhere MVP Progress
 
-Last Updated: February 1, 2026
+Last Updated: February 1, 2026 (Phase 5 API complete, CrimesModule wired up)
 
 ---
 
 ## Current Phase
 
-**Phase 1: Infrastructure Setup** (Phase 0 tasks 0.3, 0.4, 0.6 deferred)
+**Phase 4: ETL Implementation (French Datasets) - IN PROGRESS**
+**Phase 5: Backend API (Read-Only) - COMPLETE**
 
 ## Completed Tasks
 
@@ -73,6 +74,16 @@ Last Updated: February 1, 2026
   - API config: NODE_ENV, API_PORT, CORS_ORIGIN
   - External APIs: MAPBOX_API_TOKEN placeholder
   - Full DATABASE_URL connection string template
+
+- ✅ **Task 1.6**: Write README with setup instructions
+  - Created comprehensive README.md at project root
+  - Quick start guide (Docker + local development)
+  - Full project structure documentation
+  - Database, API, and ETL development workflows
+  - Environment variables reference table
+  - Database schema diagram (ASCII)
+  - API endpoints documentation
+  - Links to all documentation files
 
 **Phase 2 - Database Schema:**
 - ✅ **Task 2.1**: Create `administrative_areas` table with PostGIS geometry column
@@ -179,11 +190,217 @@ Last Updated: February 1, 2026
   - All categories set as isActive = true
   - Created comprehensive unit tests (20 test cases)
 
+- ✅ **Task 2.11**: Write schema migration tests
+  - Created comprehensive unit tests for all 7 schema migrations + 1 seed migration
+  - Test files created:
+    - `1706745600000-CreateAdministrativeAreas.spec.ts` - Tests PostGIS geometry, GIST index, enum types
+    - `1706832000000-CreatePopulation.spec.ts` - Tests FK constraints, unique indexes, cascade delete
+    - `1706918400000-CreateCrimeCategories.spec.ts` - Tests severity/group enums, unique code constraint
+    - `1707004800000-CreateDataSources.spec.ts` - Tests update frequency enum, JSONB metadata
+    - `1707091200000-CreateCrimeObservations.spec.ts` - Tests 3 FKs, composite indexes, time granularity
+    - `1707177600000-CreateCategoryMappings.spec.ts` - Tests mapping confidence, partial indexes
+    - `1707264000000-CreateEtlRuns.spec.ts` - Tests ETL status enum, JSONB error/warning tracking
+    - `1707350400000-SeedCrimeCategories.spec.ts` - Tests all 20 categories seeded correctly
+  - **Total: 144 test cases passing** covering:
+    - Migration metadata validation (name, MigrationInterface)
+    - up() method: table creation, columns, constraints, indexes, comments
+    - down() method: proper cleanup order (constraints → indexes → tables → enums)
+    - Data integrity: FK relationships, unique constraints, enum values
+    - Reversibility: up/down operations are symmetric
+
+**Phase 3 - ETL Pipeline:**
+- ✅ **Task 3.1**: Create base ETL classes (Extractor, Transformer, Loader)
+  - Created `BaseExtractor<TRaw>` abstract class with extract/validate methods
+  - Created `BaseTransformer<TRaw, TTransformed>` with row transformation
+  - Created `BaseLoader<T>` with batch insert, upsert, and transaction support
+  - Created `BasePipeline<TRaw, TTransformed>` orchestrating E-T-L flow
+  - All classes include comprehensive TypeScript interfaces
+
+- ✅ **Task 3.2**: Implement file download utility with caching
+  - Created `downloadFile()` function in `etl/src/utils/download.ts`
+  - MD5-based cache key generation from URL
+  - Configurable cache directory and max age
+  - Force download option to bypass cache
+
+- ✅ **Task 3.3**: Implement French département geometry loader
+  - Created `departements/` pipeline with Extractor, Transformer, Loader
+  - Downloads GeoJSON from geo.api.gouv.fr
+  - Transforms to PostGIS-compatible format
+  - Loads 96 metropolitan + 5 overseas départements
+
+- ✅ **Task 3.4**: Implement INSEE population data loader
+  - Created `population/` pipeline with full ETL implementation
+  - Embedded INSEE population data (2016-2024) for MVP
+  - Resolves département codes to area_id via database lookup
+  - Loads 909 records (101 départements × 9 years)
+  - Includes comprehensive unit tests (extractor, transformer, loader, pipeline)
+  - Population stored in thousands, converted to actual values during extraction
+  - Source: INSEE Estimations de population (https://www.insee.fr/fr/statistiques/1893198)
+
+- ✅ **Task 3.5**: Implement monthly-to-yearly aggregation utility
+  - Created `aggregateMonthlyToYearly()` in `etl/src/utils/aggregation.ts`
+  - Supports SUM, AVERAGE, LAST, MAX, MIN strategies
+  - Handles partial years with extrapolation option
+  - Tracks missing months and generates warnings
+
+- ✅ **Task 3.6**: Implement rate_per_100k calculation utility
+  - Created `calculateRatePer100k()` in `etl/src/utils/rate-calculator.ts`
+  - Added `convertPer1kTo100k()` for French data sources
+  - Added `calculatePercentageChange()` for year-over-year analysis
+
+- ✅ **Task 3.7**: Create validation utility
+  - Created validation functions in `etl/src/utils/validation.ts`
+  - `validateRowCount()` with tolerance parameter
+  - `validateRequiredFields()` for row completeness
+  - `validateNumericRange()` for value bounds checking
+
+- ✅ **Task 3.8**: Create ETL run logger
+  - Created `EtlRunLogger` class in `etl/src/utils/etl-run-logger.ts`
+  - Records to `etl_runs` table with full metadata tracking
+  - Supports start, update, and complete run lifecycle
+  - Tracks rows extracted/transformed/loaded/skipped
+
+- ✅ **Task 3.9**: Write ETL logging/reporting formatter
+  - Created `report-formatter.ts` in `etl/src/utils/` (823 lines)
+  - Console-friendly summaries with ANSI color coding
+  - Status icons and labels (✓, ⚠, ✗) for pipeline results
+  - Detailed text reports for logging
+  - JSON reports for programmatic consumption
+  - Duration and row count formatting utilities
+  - Batch summary for multi-pipeline runs
+  - Progress bar visualization
+  - Run history table formatting
+  - Log entry formatting with timestamps
+  - Strip colors utility for file output
+  - Created comprehensive unit tests (610 lines, 50+ test cases)
+
+- ✅ **Task 3.10**: Document ETL contract (required methods per dataset)
+  - Created comprehensive ETL contract documentation → [docs/ETL_CONTRACT.md](docs/ETL_CONTRACT.md)
+  - Documented all 4 base class contracts (Extractor, Transformer, Loader, Pipeline)
+  - Listed required abstract methods with signatures and responsibilities
+  - Provided pipeline implementation checklist (8 steps)
+  - Documented dataset-specific requirements (État 4001, Time Series)
+  - Included utility function usage guides (download, aggregation, rate calculation)
+  - Added error handling strategies by component
+  - Documented pipeline execution order and dependencies
+  - Provided CLI interface documentation
+  - Added testing guidelines with example code
+
 ---
 
 ## In Progress
 
-_Task 2.11 (Write schema migration tests) ready to start_
+**Phase 4: ETL Implementation (French Datasets)**
+
+### Dataset 1 (État 4001):
+- ✅ **Task 4.1.1**: Implement CSV extractor for État 4001
+  - Created `france-monthly.extractor.ts` with full extraction logic
+  - Handles Latin-1 encoding, semicolon delimiters
+  - Parses 96 département column headers to standardized codes
+  - Extracts year/month from filename patterns
+  - Comprehensive unit tests (93 test cases passing)
+
+- ✅ **Task 4.1.2**: Implement category mapper (107 French categories → 20 canonical)
+  - Created `france-monthly.category-mapper.ts` with complete mapping
+  - Maps all 103 active État 4001 indices to 20 canonical categories
+  - 4 unused indices (96, 97, 99, 100) properly handled
+  - O(1) lookup via Map-based caching
+  - Includes reverse lookup (canonical → source indices)
+  - Comprehensive unit tests (155 test cases passing)
+
+- ✅ **Task 4.1.3**: Implement département resolver (column name → area_id)
+  - Created `france-monthly.departement-resolver.ts` with database lookup
+  - Preloads all départements from `administrative_areas` table
+  - Normalizes codes (single-digit padding, Corsica codes 2A/2B)
+  - Resolves column names via `DEPARTEMENT_NAME_TO_CODE` mapping
+  - Provides batch resolution and lookup functions for efficiency
+  - Includes validation coverage check for expected départements
+  - Comprehensive unit tests (58 test cases passing)
+
+- ✅ **Task 4.1.4**: Aggregate monthly data to yearly totals
+  - Created `france-monthly.aggregator.ts` with `aggregateToYearly()` function
+  - Aggregates by (département_code, canonical_category, year) → sum counts
+  - Maps 107 État 4001 indices to 20 canonical categories during aggregation
+  - Handles partial years with optional extrapolation (12/N scaling)
+  - Tracks missing months and data completeness per aggregation key
+  - Includes helper functions: `getCategorySummary()`, `getDepartementSummary()`, `getYearSummary()`, `filterAggregatedData()`
+  - Comprehensive unit tests (31 test cases passing)
+
+- ✅ **Task 4.1.5**: Calculate rate_per_100k using INSEE population
+  - Created `france-monthly.rate-enricher.ts` (518 lines)
+  - Enriches yearly aggregates with rate calculations using embedded INSEE population data
+  - Creates `EnrichedCrimeRecord` with ratePer100k, populationUsed, and metadata
+  - Comprehensive unit tests
+
+- ✅ **Task 4.1.6**: Write loader with upsert logic
+  - Created `france-monthly.loader.ts` (642 lines)
+  - Extends BaseLoader for crime_observations table
+  - Upsert logic: same source + area + category + year = replace
+  - Batch processing with transaction support
+  - Comprehensive unit tests
+
+- [ ] 4.1.7 Create dataset validation tests
+- [ ] 4.1.8 Run full pipeline and verify row counts
+
+### Dataset 2 (Time Series):
+- Tasks 4.2.1-4.2.8 remaining
+
+**Phase 5: Backend API (Read-Only) - COMPLETE**
+
+- ✅ **Task 5.1**: Create `AreasController` with GET endpoints
+  - Created `AreasController` with `GET /areas`, `GET /areas/geojson`, `GET /areas/:id`
+  - Created `AreasService` with `findAll()`, `findOne()`, `findByCode()`, `findAllAsGeoJson()`
+  - DTOs: `AreaListQueryDto`, `AreaResponseDto`, `AreaDetailResponseDto`, `AreaListResponseDto`
+  - Filter support: `level`, `parentCode`, `countryCode`
+  - GeoJSON endpoint returns `FeatureCollection` for choropleth map visualization
+
+- ✅ **Task 5.2**: Create `CategoriesController`
+  - Created `CategoriesController` with `GET /categories`, `GET /categories/:id`
+  - Created `CategoriesService` with `findAll()`, `findOne()`, `findByCode()`
+  - DTOs: `CategoryListQueryDto`, `CategoryResponseDto`, `CategoryListResponseDto`
+  - Filter support: `severity`, `categoryGroup`, `isActive`
+  - Returns all 20 canonical categories with French translations
+
+- ✅ **Task 5.3**: Create `ObservationsController`
+  - Created `ObservationsController` with `GET /observations`, `GET /observations/:id`
+  - Created `ObservationsService` with `findAll()`, `findOne()`, `findByAreaAndYear()`
+  - DTOs: `ObservationListQueryDto`, `ObservationResponseDto`, `PaginationMetaDto`, `ObservationListResponseDto`
+  - Filter support: `areaId/areaCode`, `categoryId/categoryCode`, `dataSourceId/dataSourceCode`, `year/yearFrom/yearTo`
+  - Pagination support: `page`, `limit` with full metadata (`total`, `totalPages`, `hasNextPage`, `hasPrevPage`)
+  - Returns both `count` and `ratePer100k` with `populationUsed`
+
+- ✅ **Task 5.4**: Create `ComparisonController`
+  - Created `ComparisonController` with `GET /compare/areas`, `GET /compare/years`, `GET /compare/sources`
+  - Created `ComparisonService` with `compareAreas()`, `compareYears()`, `compareSources()`
+  - DTOs: `CompareAreasQueryDto`, `CompareYearsQueryDto`, `CompareSourcesQueryDto`, `ComparisonItemDto`, response DTOs
+  - Returns per-category: `countA/B`, `rateA/B`, `countDiff`, `rateDiff`, `countPctChange`, `ratePctChange`
+
+- ✅ **Task 5.5**: Add OpenAPI decorators to all endpoints
+  - All controllers decorated with `@ApiTags`, `@ApiOperation`, `@ApiOkResponse`, `@ApiNotFoundResponse`, `@ApiParam`
+  - All DTOs have `@ApiProperty` decorators with examples and descriptions
+
+- ✅ **Task 5.6**: Implement error handling middleware
+  - NestJS built-in exception filters handle 400 (validation), 404 (not found) errors
+  - `NotFoundException` thrown by services for missing resources
+
+- ✅ **Task 5.7**: Add request validation (DTOs)
+  - All query DTOs use `class-validator` decorators (`@IsOptional`, `@IsEnum`, `@IsInt`, `@Min`, `@Max`, etc.)
+  - `ValidationPipe` with `whitelist: true`, `forbidNonWhitelisted: true`, `transform: true` enabled
+
+- ✅ **Task 5.8**: Write API integration tests
+  - Created comprehensive e2e test suite in `api/test/api.e2e-spec.ts` (801 lines)
+  - Tests all endpoints: AreasController, CategoriesController, ObservationsController, ComparisonController
+  - Covers success cases, filtering, pagination, 404 errors, 400 validation errors
+  - Uses test database with setup/teardown fixtures
+
+- ✅ **Task 5.9**: Generate Swagger UI
+  - Main.ts configures `SwaggerModule` with full API metadata
+  - Available at `/api-docs` when API server is running
+
+- ✅ **Module Wiring**: CrimesModule updated
+  - Registered `CategoriesController`, `ObservationsController`, `ComparisonController`
+  - Registered `CategoriesService`, `ObservationsService`, `ComparisonService`
+  - Added `AdministrativeArea`, `DataSource` entities for repository injection
 
 ---
 
@@ -219,8 +436,8 @@ See [docs/FRENCH_DATASETS.md](docs/FRENCH_DATASETS.md) for comprehensive documen
 - Population rates require separate INSEE data source
 
 ### Action Items from Research
-- [ ] Investigate Mapbox Boundaries API for French département polygons
-- [ ] Source INSEE population data (département-level, yearly 2016-2025)
+- [x] ~~Investigate Mapbox Boundaries API for French département polygons~~ → Using geo.api.gouv.fr
+- [x] ~~Source INSEE population data (département-level, yearly 2016-2025)~~ → Embedded in ETL
 - [x] ~~Determine if `datagouv-serieschrono.csv` provides département breakdowns~~ → **YES, annual data**
 
 ---
@@ -233,8 +450,8 @@ See [docs/FRENCH_DATASETS.md](docs/FRENCH_DATASETS.md) for comprehensive documen
 - Keep entries brief and factual -->
 
 
-- France-only MVP provides highest data quality (d\u00e9partement-level)
-- Will need robust encoding handling (Latin-1 \u2192 UTF-8)
-- Monthly \u2192 yearly aggregation required in ETL transform stage
+- France-only MVP provides highest data quality (département-level)
+- Will need robust encoding handling (Latin-1 → UTF-8)
+- Monthly → yearly aggregation required in ETL transform stage
 - Category mapping will be key challenge (107 État 4001 indices → 15-20 canonical)
 - Time series provides both raw counts AND per-1000-habitants rates for département data

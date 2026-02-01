@@ -12,38 +12,38 @@
 ## Phase 1: Infrastructure Setup
 
 - [x] 1.1 Initialize Docker Compose with postgres:16-postgis service
-- [ ] 1.2 Create NestJS project scaffold
-- [ ] 1.3 Configure TypeORM with PostGIS types
-- [ ] 1.4 Set up separate `etl/` directory structure
-- [ ] 1.5 Configure environment variables (.env.example)
-- [ ] 1.6 Write README with setup instructions
+- [x] 1.2 Create NestJS project scaffold
+- [x] 1.3 Configure TypeORM with PostGIS types
+- [x] 1.4 Set up separate `etl/` directory structure
+- [x] 1.5 Configure environment variables (.env.example)
+- [x] 1.6 Write README with setup instructions
 
 ## Phase 2: Database Schema
 
-- [ ] 2.1 Create `administrative_areas` table with PostGIS geometry column
-- [ ] 2.2 Create `population` table (area_id, year, population_count)
-- [ ] 2.3 Create `crime_categories` table with canonical names
-- [ ] 2.4 Create `data_sources` table (name, url, description, update_frequency)
-- [ ] 2.5 Create `crime_observations` table with foreign keys (includes data_source_id, count, rate_per_100k)
-- [ ] 2.6 Create `category_mappings` table (data_source_id, source_category, canonical_category_id)
+- [x] 2.1 Create `administrative_areas` table with PostGIS geometry column
+- [x] 2.2 Create `population` table (area_id, year, population_count)
+- [x] 2.3 Create `crime_categories` table with canonical names
+- [x] 2.4 Create `data_sources` table (name, url, description, update_frequency)
+- [x] 2.5 Create `crime_observations` table with foreign keys (includes data_source_id, count, rate_per_100k)
+- [x] 2.6 Create `category_mappings` table (data_source_id, source_category, canonical_category_id)
 - [x] 2.7 Create `etl_runs` table (dataset_name, source_url, started_at, completed_at, status, rows_processed, errors)
-- [ ] 2.8 Add spatial indexes on geometry columns
-- [ ] 2.9 Add composite indexes on (area_id, category_id, year, data_source_id)
-- [ ] 2.10 Seed canonical crime categories (15-20 categories)
-- [ ] 2.11 Write schema migration tests
+- [x] 2.8 Add spatial indexes on geometry columns
+- [x] 2.9 Add composite indexes on (area_id, category_id, year, data_source_id)
+- [x] 2.10 Seed canonical crime categories (15-20 categories)
+- [x] 2.11 Write schema migration tests
 
 ## Phase 3: ETL Pipeline (Template)
 
-- [ ] 3.1 Create base ETL classes (Extractor, Transformer, Loader)
-- [ ] 3.2 Implement file download utility with caching
-- [ ] 3.3 Implement French département geometry loader (GeoJSON → PostGIS)
-- [ ] 3.4 Implement INSEE population data loader (département + year)
-- [ ] 3.5 Implement monthly-to-yearly aggregation utility
-- [ ] 3.6 Implement rate_per_100k calculation utility (count / population * 100000)
-- [ ] 3.7 Create validation utility (row counts, sanity checks)
-- [ ] 3.8 Create ETL run logger (records to `etl_runs` table)
-- [ ] 3.9 Write ETL logging/reporting formatter
-- [ ] 3.10 Document ETL contract (required methods per dataset)
+- [x] 3.1 Create base ETL classes (Extractor, Transformer, Loader)
+- [x] 3.2 Implement file download utility with caching
+- [x] 3.3 Implement French département geometry loader (GeoJSON → PostGIS)
+- [x] 3.4 Implement INSEE population data loader (département + year)
+- [x] 3.5 Implement monthly-to-yearly aggregation utility
+- [x] 3.6 Implement rate_per_100k calculation utility (count / population * 100000)
+- [x] 3.7 Create validation utility (row counts, sanity checks)
+- [x] 3.8 Create ETL run logger (records to `etl_runs` table)
+- [x] 3.9 Write ETL logging/reporting formatter
+- [x] 3.10 Document ETL contract (required methods per dataset)
 
 ## Phase 4: ETL Implementation (French Datasets)
 
@@ -71,25 +71,25 @@
 
 ## Phase 5: Backend API (Read-Only)
 
-- [ ] 5.1 Create `AreasController` with GET endpoints
-  - [ ] 5.1.1 `GET /areas` (list départements, filter by région)
-  - [ ] 5.1.2 `GET /areas/:id` (with geometry)
-- [ ] 5.2 Create `CategoriesController`
-  - [ ] 5.2.1 `GET /categories` (list canonical categories)
-- [ ] 5.3 Create `ObservationsController`
-  - [ ] 5.3.1 `GET /observations` (query by area, category, year, source)
-  - [ ] 5.3.2 Add pagination support
-  - [ ] 5.3.3 Return both count and rate_per_100k
-  - [ ] 5.3.4 Add data_source metadata to response
-- [ ] 5.4 Create `ComparisonController`
-  - [ ] 5.4.1 `GET /compare/areas` (area A vs B for category/year/source)
-  - [ ] 5.4.2 `GET /compare/years` (year X vs Y for area/category/source)
-  - [ ] 5.4.3 `GET /compare/sources` (source A vs B for area/category/year)
-- [ ] 5.5 Add OpenAPI decorators to all endpoints
-- [ ] 5.6 Implement error handling middleware
-- [ ] 5.7 Add request validation (DTOs)
-- [ ] 5.8 Write API integration tests
-- [ ] 5.9 Generate Swagger UI
+- [x] 5.1 Create `AreasController` with GET endpoints
+  - [x] 5.1.1 `GET /areas` (list départements, filter by région)
+  - [x] 5.1.2 `GET /areas/:id` (with geometry)
+- [x] 5.2 Create `CategoriesController`
+  - [x] 5.2.1 `GET /categories` (list canonical categories)
+- [x] 5.3 Create `ObservationsController`
+  - [x] 5.3.1 `GET /observations` (query by area, category, year, source)
+  - [x] 5.3.2 Add pagination support
+  - [x] 5.3.3 Return both count and rate_per_100k
+  - [x] 5.3.4 Add data_source metadata to response
+- [x] 5.4 Create `ComparisonController`
+  - [x] 5.4.1 `GET /compare/areas` (area A vs B for category/year/source)
+  - [x] 5.4.2 `GET /compare/years` (year X vs Y for area/category/source)
+  - [x] 5.4.3 `GET /compare/sources` (source A vs B for area/category/year)
+- [x] 5.5 Add OpenAPI decorators to all endpoints
+- [x] 5.6 Implement error handling middleware
+- [x] 5.7 Add request validation (DTOs)
+- [x] 5.8 Write API integration tests
+- [x] 5.9 Generate Swagger UI
 
 ## Phase 6: Frontend Foundation
 

@@ -48,6 +48,31 @@ services:
       retries: 3
       start_period: 30s
 
+  etl:
+    build:
+      context: ./etl
+      dockerfile: Dockerfile
+    container_name: bewhere-etl
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-bewhere}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bewhere_dev}
+      POSTGRES_DB: ${POSTGRES_DB:-bewhere}
+      ETL_CACHE_DIR: /app/cache
+    volumes:
+      - etl_cache:/app/cache
+    depends_on:
+      db:
+        condition: service_healthy
+    # ETL runs as a one-off job, not a persistent service
+    # Use: docker compose run --rm etl npm run etl:all
+    profiles:
+      - etl
+
 volumes:
   postgres_data:
+    driver: local
+  etl_cache:
     driver: local
