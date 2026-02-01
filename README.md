@@ -35,65 +35,49 @@ BeWhere normalizes French crime data from multiple sources into a canonical sche
 
 ## Quick Start
 
-### 1. Clone and Configure
+> **📖 See [docs/QUICKSTART.md](docs/QUICKSTART.md) for the full quick start guide with troubleshooting.**
+
+### 5-Minute Setup
 
 ```bash
+# 1. Clone and configure
 git clone <repository-url>
 cd be-where
-
-# Copy environment template
 cp .env.example .env
-```
 
-### 2. Start Database
-
-```bash
-# Start PostgreSQL with PostGIS
+# 2. Start database
 docker compose up -d db
+docker compose ps  # Wait for "healthy" status
 
-# Verify database is healthy
-docker compose ps
-```
+# 3. Run migrations
+cd api && npm install && npm run migration:run && cd ..
 
-### 3. Run Migrations
-
-```bash
-cd api
-npm install
-npm run migration:run
+# 4. Load initial data
+cd etl && npm install
+npm run etl:departements   # ~10 seconds
+npm run etl:population     # ~5 seconds
 cd ..
+
+# 5. Start API
+cd api && npm run start:dev
 ```
 
-### 4. Load Initial Data (ETL)
+The API will be available at:
+- **Health check**: http://localhost:3000/health
+- **Swagger docs**: http://localhost:3000/api-docs
+- **Areas API**: http://localhost:3000/areas
+
+### Start Frontend (Optional)
 
 ```bash
-cd etl
-npm install
-
-# Load départements (must run first)
-npm run etl:departements
-
-# Load population data
-npm run etl:population
-
-cd ..
+cd web && npm install && npm run dev
 ```
 
-### 5. Start API
-
-```bash
-cd api
-npm run start:dev
-```
-
-The API will be available at `http://localhost:3000`
-
-- Health check: `GET /health`
-- Swagger docs: `http://localhost:3000/api` (when implemented)
+Web app: http://localhost:5173 (requires Mapbox token in `web/.env`)
 
 ## Docker Compose (Full Stack)
 
-Run all services together:
+Run all services together without manual setup:
 
 ```bash
 # Start database and API
@@ -102,8 +86,31 @@ docker compose up -d
 # Run ETL (one-off job)
 docker compose run --rm etl npm run etl:all
 
+# Run specific ETL pipeline
+docker compose run --rm etl npm run etl:departements
+
 # View logs
 docker compose logs -f api
+
+# Stop all services
+docker compose down
+
+# Reset database (delete all data)
+docker compose down -v
+```
+
+### Service Health Check
+
+```bash
+# Verify all services running
+docker compose ps
+
+# Check API health
+curl http://localhost:3000/health
+
+# Check data loaded
+curl -s http://localhost:3000/areas | jq '.meta.total'      # Expected: 101
+curl -s http://localhost:3000/categories | jq '.meta.total' # Expected: 20
 ```
 
 ## Project Structure
@@ -322,6 +329,7 @@ MIT
 
 ## Documentation
 
+- [Quick Start Guide](docs/QUICKSTART.md) - Get running in 5 minutes
 - [Project Plan](PLAN.md) - Architecture and scope
 - [Task Breakdown](TASKS.md) - Implementation tasks
 - [Progress](PROGRESS.md) - Current status
@@ -329,3 +337,4 @@ MIT
 - [Crime Taxonomy](docs/CRIME_TAXONOMY.md) - Category definitions
 - [Category Mappings](docs/CATEGORY_MAPPINGS.md) - French → canonical
 - [French Datasets](docs/FRENCH_DATASETS.md) - Data source documentation
+- [ETL Contract](docs/ETL_CONTRACT.md) - ETL implementation guide

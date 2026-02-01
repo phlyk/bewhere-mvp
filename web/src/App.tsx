@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCallback } from 'react';
+import { Layout, MapContainer, type SelectedArea } from './components';
+import {
+    setMapSelectedAreaId,
+    toggleAreaId,
+    useAppDispatch,
+    useChoroplethData,
+    useDefaultSelections,
+    useSelections,
+} from './store';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useAppDispatch();
+  const { mapSelectedAreaId } = useSelections();
+
+  // Initialize default selections on first load
+  useDefaultSelections();
+
+  // Get choropleth data based on current selections
+  const { choroplethData, legendTitle, isRate, isFetching } = useChoroplethData();
+
+  // Handle area click on map - toggle selection and set highlight
+  const handleAreaClick = useCallback((area: SelectedArea | null) => {
+    if (area) {
+      // Set the map-selected area for highlighting
+      dispatch(setMapSelectedAreaId(area.id));
+      // Toggle the area in the filter selection
+      dispatch(toggleAreaId(area.id));
+      console.log('Selected area:', area.name, `(${area.code})`);
+    } else {
+      dispatch(setMapSelectedAreaId(null));
+    }
+  }, [dispatch]);
+
+  // Build choropleth config for the map
+  const choroplethConfig = choroplethData.length > 0 ? {
+    data: choroplethData,
+    title: legendTitle,
+    isRate,
+  } : null;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Layout>
+      <MapContainer
+        selectedAreaId={mapSelectedAreaId}
+        onAreaClick={handleAreaClick}
+        choropleth={choroplethConfig}
+        isChoroplethLoading={isFetching}
+      />
+    </Layout>
+  );
 }
 
-export default App
+export default App;

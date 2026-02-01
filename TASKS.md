@@ -125,35 +125,32 @@
 
 ## Phase 9: Comparison Features
 
-- [ ] 9.1 Add "Compare" mode toggle in UI (MUI Tabs)
-- [ ] 9.2 Implement dual area selection (A vs B)
-- [ ] 9.3 Display comparison results (delta, percentage change)
-- [ ] 9.4 Implement year-over-year comparison for single area
-- [ ] 9.5 Implement source comparison (show discrepancies between datasets)
-- [ ] 9.6 Add basic chart visualization for comparisons (Chart.js or Recharts)
-- [ ] 9.7 Style comparison UI panel (MUI Cards)
+- [x] 9.1 Add "Compare" mode toggle in UI (MUI Tabs)
+- [x] 9.2 Implement dual area selection (A vs B)
+- [x] 9.3 Display comparison results (delta, percentage change)
+- [x] 9.4 Implement year-over-year comparison for single area
+- [x] 9.5 Implement source comparison (show discrepancies between datasets)
+- [x] 9.6 Add basic chart visualization for comparisons (Recharts)
+- [x] 9.7 Style comparison UI panel (MUI Cards)
 
 ## Phase 10: Testing & Validation
 
-- [ ] 10.1 Write Playwright MCP test: load map → select département → view data
-- [ ] 10.2 Write Playwright MCP test: compare two départements
-- [ ] 10.3 Write Playwright MCP test: toggle count vs rate display
-- [ ] 10.4 Verify all ETL pipelines produce expected row counts
-- [ ] 10.5 Cross-check sample values against original sources
-- [ ] 10.6 Validate category mappings (spot-check 5+ categories)
-- [ ] 10.7 Test spatial joins with real département polygons
-- [ ] 10.8 Performance test: query times for full dataset
+- [x] 10.1 Write Playwright MCP test: load map → select département → view data
+- [x] 10.2 Write Playwright MCP test: compare two départements
+- [x] 10.3 Write Playwright MCP test: toggle count vs rate display
+- [x] 10.4 Verify all ETL pipelines produce expected row counts
+- [x] 10.5 Cross-check sample values against original sources
+- [x] 10.6 Validate category mappings (spot-check 5+ categories)
+- [x] 10.7 Test spatial joins with real département polygons
+- [x] 10.8 Performance test: query times for full dataset
 
 ## Phase 11: Documentation & Polish
 
-- [ ] 11.1 Document API endpoints with examples (Swagger + README)
 - [ ] 11.2 Create ETL runbook:
   - [ ] How to add new French dataset
   - [ ] How to re-run failed ETL jobs
   - [ ] How to update population data
-- [ ] 11.3 Document French category mappings (47+ → 15-20)
 - [ ] 11.4 Document known data gaps and limitations
-- [ ] 11.5 Add docker-compose quick start guide
 - [ ] 11.6 Create demo video or screenshots (département choropleth)
 - [ ] 11.7 Clean up console warnings and logs
 - [ ] 11.8 Document Mapbox Boundaries API research findings
