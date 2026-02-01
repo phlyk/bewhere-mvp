@@ -2,10 +2,25 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import dataSource from './config/typeorm.config';
 
 const logger = new Logger('Bootstrap');
 
 async function bootstrap() {
+  // Initialize and run migrations before starting the app
+  logger.log('🔄 Initializing database connection...');
+  await dataSource.initialize();
+  logger.log('✅ Database connection established');
+
+  logger.log('🔄 Running database migrations...');
+  const migrations = await dataSource.runMigrations();
+  if (migrations.length > 0) {
+    logger.log(`✅ Applied ${migrations.length} migration(s):`);
+    migrations.forEach((m) => logger.log(`   - ${m.name}`));
+  } else {
+    logger.log('✅ Database is up to date (no pending migrations)');
+  }
+
   const app = await NestFactory.create(AppModule);
 
   // Global validation pipe

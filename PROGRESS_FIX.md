@@ -33,12 +33,12 @@ The MVP does not run. This file tracks progress on fixing critical issues.
 - [x] **F1.5**: Verify ETL builds successfully ✅
 - [ ] **F1.6**: Fix frontend syntax errors
 - [ ] **F1.7**: Verify frontend builds successfully
-- [ ] **F1.8**: Verify API builds successfully
+- [x] **F1.8**: Verify API builds successfully ✅
 
 ### Priority 2: Database Migrations
 
-- [ ] **F2.1**: Add migration run to API startup
-- [ ] **F2.2**: Ensure migrations run before API accepts requests
+- [x] **F2.1**: Add migration run to API startup ✅
+- [x] **F2.2**: Ensure migrations run before API accepts requests ✅
 - [ ] **F2.3**: Verify all 8 migrations succeed
 - [ ] **F2.4**: Verify API returns 200 (not 500)
 
@@ -68,6 +68,17 @@ The MVP does not run. This file tracks progress on fixing critical issues.
 ---
 
 ## Completed Fixes
+
+### February 1, 2026 - Database Migrations Run on Startup
+
+1. **api/src/main.ts**: Modified bootstrap function to run migrations before the app starts listening
+   - Imports DataSource from `./config/typeorm.config`
+   - Initializes the database connection with `dataSource.initialize()`
+   - Runs pending migrations with `dataSource.runMigrations()`
+   - Logs migration progress and results
+   - Only after migrations complete does it create the NestJS app and start listening
+
+This ensures all 8 migration files will be executed on API startup, creating the required tables (crime_categories, administrative_areas, crime_observations, etc.) before any requests are served.
 
 ### February 1, 2026 - ETL TypeScript Errors Fixed
 
