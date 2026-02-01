@@ -146,11 +146,12 @@
 
 ## Phase 11: Documentation & Polish
 
-- [ ] 11.2 Create ETL runbook:
-  - [ ] How to add new French dataset
-  - [ ] How to re-run failed ETL jobs
-  - [ ] How to update population data
-- [ ] 11.4 Document known data gaps and limitations
-- [ ] 11.6 Create demo video or screenshots (département choropleth)
-- [ ] 11.7 Clean up console warnings and logs
-- [ ] 11.8 Document Mapbox Boundaries API research findings
+- [x] 11.1 Document API endpoints with examples (Swagger + README)
+- [x] 11.2 Create ETL runbook:
+  - [x] How to add new French dataset
+  - [x] How to re-run failed ETL jobs
+  - [x] How to update population data
+- [x] 11.4 Document known data gaps and limitations
+- [ ] 11.6 Create demo video or screenshots (département choropleth) - SKIPPED (requires visual tools)
+- [x] 11.7 Clean up console warnings and logs
+- [x] 11.8 Document Mapbox Boundaries API research findings
