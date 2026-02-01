@@ -84,14 +84,14 @@ export function getViewModeDescription(mode: ViewMode): string {
 /**
  * Get icon for view mode
  */
-function getViewModeIcon(mode: ViewMode) {
+function getViewModeIcon(mode: ViewMode): React.ReactElement | undefined {
   switch (mode) {
     case 'map':
       return <MapIcon />;
     case 'compare':
       return <CompareArrowsIcon />;
     default:
-      return null;
+      return undefined;
   }
 }
 

@@ -128,7 +128,7 @@ export function createSequentialScale(
       type: 'sequential',
       colors,
       domain: [0, 100],
-      breaks: calculateEqualIntervalBreaks(0, 100, colors.length),
+      breaks: calculateEqualIntervalBreaks(0, 100, numClasses),
     };
   }
 
@@ -137,8 +137,8 @@ export function createSequentialScale(
 
   const breaks =
     method === 'quantile'
-      ? calculateQuantileBreaks(values, colors.length)
-      : calculateEqualIntervalBreaks(min, max, colors.length);
+      ? calculateQuantileBreaks(values, numClasses)
+      : calculateEqualIntervalBreaks(min, max, numClasses);
 
   return {
     type: 'sequential',
@@ -241,7 +241,7 @@ export function buildMapboxMatchExpression(
   idProperty: string = 'id'
 ): mapboxgl.Expression {
   if (dataPoints.length === 0) {
-    return NO_DATA_COLOR;
+    return ['literal', NO_DATA_COLOR] as mapboxgl.Expression;
   }
 
   // Build match expression: ['match', ['get', 'id'], id1, color1, id2, color2, ..., defaultColor]

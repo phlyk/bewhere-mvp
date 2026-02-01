@@ -1,17 +1,10 @@
-import CategoryIcon from '@mui/icons-material/Category';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import InfoIcon from '@mui/icons-material/Info';
-import MapIcon from '@mui/icons-material/Map';
 import {
     Alert,
     Box,
     Chip,
     Divider,
     Drawer,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
     Typography,
 } from '@mui/material';
 import { useCallback } from 'react';
@@ -71,7 +64,6 @@ export function Sidebar({
     isLoading: isChoroplethLoading,
     isFetching: isChoroplethFetching,
     error: choroplethError,
-    hasData,
   } = useChoroplethData();
 
   // Handle area selection change - dispatch to Redux
@@ -194,104 +186,105 @@ export function Sidebar({
           {/* Region/Department Selector */}
           <Box sx={{ mb: 2 }}>
             <RegionDepartmentSelector
-            value={selectedAreaIds}
-            onChange={handleAreaSelectionChange}
-            multiple={true}
-            levels={['department']}
-            label="Département"
-            placeholder="Search départements..."
-            size="small"
-            maxSelections={5}
-          />
+              value={selectedAreaIds}
+              onChange={handleAreaSelectionChange}
+              multiple={true}
+              levels={['department']}
+              label="Département"
+              placeholder="Search départements..."
+              size="small"
+              maxSelections={5}
+            />
+          </Box>
+
+          {/* Crime Category Selector */}
+          <Box sx={{ mb: 2 }}>
+            <CrimeCategorySelector
+              value={selectedCategoryId}
+              onChange={handleCategorySelectionChange}
+              label="Crime Category"
+              placeholder="Select a category..."
+              size="small"
+              showSeverity={true}
+            />
+          </Box>
+
+          {/* Year Range Selector */}
+          <Box sx={{ mb: 2 }}>
+            <YearRangeSelector
+              value={selectedYearRange}
+              onChange={handleYearRangeChange}
+              label="Year Range"
+              size="small"
+              showMarks={true}
+              showChips={true}
+              showReset={true}
+            />
+          </Box>
+
+          {/* Data Source Selector */}
+          <Box sx={{ mb: 2 }}>
+            <DataSourceSelector
+              value={selectedDataSourceId}
+              onChange={handleDataSourceChange}
+              label="Data Source"
+              displayMode="chip"
+              size="small"
+              showIcons={true}
+              showDescription={true}
+              showUpdateFrequency={false}
+              required={false}
+            />
+          </Box>
+
+          {/* Display Mode Toggle */}
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Display Mode
+            </Typography>
+            <DisplayModeToggle
+              value={displayMode}
+              onChange={handleDisplayModeChange}
+              size="small"
+              showLabels={true}
+              showTooltip={true}
+              compact={true}
+            />
+          </Box>
+
+          <Divider sx={{ my: 2 }} />
+
+          {/* Data Fetch Status - Shows loading/error/data count */}
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Data Status
+            </Typography>
+            <DataFetchStatus
+              isLoading={isChoroplethLoading}
+              isFetching={isChoroplethFetching}
+              error={choroplethError}
+              dataCount={choroplethData.length}
+              dataLabel="regions"
+              isValidSelection={isValidSelection}
+              invalidSelectionMessage="Select a crime category to view data"
+              compact
+            />
+          </Box>
+
+          {/* Selection summary */}
+          {selectedAreaIds.length > 0 && (
+            <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 1 }}>
+              {selectedAreaIds.length} département{selectedAreaIds.length > 1 ? 's' : ''} selected
+            </Typography>
+          )}
+          
+          {selectedAreaIds.length === 0 && (
+            <Typography variant="body2" color="text.disabled" sx={{ mt: 1 }}>
+              Select a département from the dropdown or click on the map.
+            </Typography>
+          )}
         </Box>
-
-        {/* Crime Category Selector */}
-        <Box sx={{ mb: 2 }}>
-          <CrimeCategorySelector
-            value={selectedCategoryId}
-            onChange={handleCategorySelectionChange}
-            label="Crime Category"
-            placeholder="Select a category..."
-            size="small"
-            showSeverity={true}
-          />
-        </Box>
-
-        {/* Year Range Selector */}
-        <Box sx={{ mb: 2 }}>
-          <YearRangeSelector
-            value={selectedYearRange}
-            onChange={handleYearRangeChange}
-            label="Year Range"
-            size="small"
-            showMarks={true}
-            showChips={true}
-            showReset={true}
-          />
-        </Box>
-
-        {/* Data Source Selector */}
-        <Box sx={{ mb: 2 }}>
-          <DataSourceSelector
-            value={selectedDataSourceId}
-            onChange={handleDataSourceChange}
-            label="Data Source"
-            displayMode="chip"
-            size="small"
-            showIcons={true}
-            showDescription={true}
-            showUpdateFrequency={false}
-            required={false}
-          />
-        </Box>
-
-        {/* Display Mode Toggle */}
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Display Mode
-          </Typography>
-          <DisplayModeToggle
-            value={displayMode}
-            onChange={handleDisplayModeChange}
-            size="small"
-            showLabels={true}
-            showTooltip={true}
-            compact={true}
-          />
-        </Box>
-
-        <Divider sx={{ my: 2 }} />
-
-        {/* Data Fetch Status - Shows loading/error/data count */}
-        <Box sx={{ mb: 2 }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Data Status
-          </Typography>
-          <DataFetchStatus
-            isLoading={isChoroplethLoading}
-            isFetching={isChoroplethFetching}
-            error={choroplethError}
-            dataCount={choroplethData.length}
-            dataLabel="regions"
-            isValidSelection={isValidSelection}
-            invalidSelectionMessage="Select a crime category to view data"
-            compact
-          />
-        </Box>
-
-        {/* Selection summary */}
-        {selectedAreaIds.length > 0 && (
-          <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 1 }}>
-            {selectedAreaIds.length} département{selectedAreaIds.length > 1 ? 's' : ''} selected
-          </Typography>
-        )}
-        
-        {selectedAreaIds.length === 0 && (
-          <Typography variant="body2" color="text.disabled" sx={{ mt: 1 }}>
-            Select a département from the dropdown or click on the map.
-          </Typography>
-        )}
-      </Box>
+      )}
 
       <Divider />
 

@@ -3,11 +3,11 @@
  */
 
 import {
-    aggregateMonthlyToYearly,
     calculateMonthlyAverage,
     calculatePercentageChange,
     calculateRatePer100k,
     convertPer1kTo100k,
+    sumMonthlyToYearly,
 } from './rate-calculator';
 
 describe('Rate Calculator', () => {
@@ -92,19 +92,19 @@ describe('Rate Calculator', () => {
     });
   });
 
-  describe('aggregateMonthlyToYearly', () => {
+  describe('sumMonthlyToYearly', () => {
     it('should sum 12 months', () => {
       const months = [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210];
-      expect(aggregateMonthlyToYearly(months)).toBe(1860);
+      expect(sumMonthlyToYearly(months)).toBe(1860);
     });
 
     it('should handle empty array', () => {
-      expect(aggregateMonthlyToYearly([])).toBe(0);
+      expect(sumMonthlyToYearly([])).toBe(0);
     });
 
     it('should handle partial year', () => {
       const months = [100, 100, 100]; // Only 3 months
-      expect(aggregateMonthlyToYearly(months)).toBe(300);
+      expect(sumMonthlyToYearly(months)).toBe(300);
     });
   });
 
