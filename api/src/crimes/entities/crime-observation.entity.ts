@@ -10,7 +10,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { AdministrativeArea } from '../../areas/entities/administrative-area.entity';
-import { DataSource } from '../../etl/entities/data-source.entity';
+import { DataSourceEntity } from '../../etl/entities/data-source.entity';
 import { CrimeCategory } from './crime-category.entity';
 
 /**
@@ -108,9 +108,9 @@ export class CrimeObservation {
    * Reference to the data source entity.
    * Tracks provenance of this observation.
    */
-  @ManyToOne(() => DataSource, { onDelete: 'CASCADE' })
+  @ManyToOne(() => DataSourceEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'dataSourceId' })
-  dataSource: DataSource;
+  dataSource: DataSourceEntity;
 
   /**
    * Year of the observation.

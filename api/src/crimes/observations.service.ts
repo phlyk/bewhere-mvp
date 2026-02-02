@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AdministrativeArea, AdminLevel } from '../areas/entities';
-import { DataSource as DataSourceEntity } from '../etl/entities';
+import { DataSourceEntity } from '../etl/entities';
 import {
     ObservationListQueryDto,
     ObservationListResponseDto,

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DataSourceListResponseDto, DataSourceResponseDto } from './dto';
-import { DataSource } from './entities';
+import { DataSourceEntity } from './entities';
 
 /**
  * Service for managing data sources.
@@ -10,8 +10,8 @@ import { DataSource } from './entities';
 @Injectable()
 export class DataSourcesService {
   constructor(
-    @InjectRepository(DataSource)
-    private readonly dataSourceRepository: Repository<DataSource>,
+    @InjectRepository(DataSourceEntity)
+    private readonly dataSourceRepository: Repository<DataSourceEntity>,
   ) {}
 
   /**
@@ -32,7 +32,7 @@ export class DataSourcesService {
   /**
    * Convert entity to response DTO.
    */
-  private toDto(entity: DataSource): DataSourceResponseDto {
+  private toDto(entity: DataSourceEntity): DataSourceResponseDto {
     return {
       id: entity.id,
       code: entity.code,

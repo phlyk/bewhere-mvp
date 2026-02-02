@@ -1,5 +1,5 @@
 import { AdministrativeArea, AdminLevel } from '../../areas/entities/administrative-area.entity';
-import { DataSource, UpdateFrequency } from '../../etl/entities/data-source.entity';
+import { DataSourceEntity, UpdateFrequency } from '../../etl/entities/data-source.entity';
 import { CrimeCategory, CrimeCategoryGroup, CrimeSeverity } from './crime-category.entity';
 import { CrimeObservation, TimeGranularity } from './crime-observation.entity';
 
@@ -28,8 +28,8 @@ describe('CrimeObservation Entity', () => {
     return category;
   };
 
-  const createTestDataSource = (code: string = 'ETAT4001_MONTHLY'): DataSource => {
-    const source = new DataSource();
+  const createTestDataSource = (code: string = 'ETAT4001_MONTHLY'): DataSourceEntity => {
+    const source = new DataSourceEntity();
     source.id = `uuid-source-${code.toLowerCase()}`;
     source.code = code;
     source.name = 'État 4001 Monthly Snapshots';

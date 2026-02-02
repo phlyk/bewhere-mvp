@@ -1,8 +1,0 @@
-# BeWhere Web Environment Variables
-
-# API Configuration
-VITE_API_URL=http://localhost:3000
-
-# Mapbox Configuration
-# Get your token at: https://account.mapbox.com/access-tokens/
-VITE_MAPBOX_TOKEN=your_mapbox_token_here

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdministrativeArea } from '../areas/entities';
-import { DataSource } from '../etl/entities';
+import { DataSourceEntity } from '../etl/entities';
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from './categories.service';
 import { ComparisonController } from './comparison.controller';
@@ -27,7 +27,7 @@ import { ObservationsService } from './observations.service';
       CrimeObservation,
       // Required for ObservationsService and ComparisonService
       AdministrativeArea,
-      DataSource,
+      DataSourceEntity,
     ]),
   ],
   controllers: [

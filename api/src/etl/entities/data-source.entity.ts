@@ -63,7 +63,7 @@ export enum UpdateFrequency {
 @Index(['updateFrequency'])
 @Index(['countryCode'])
 @Index(['isActive'])
-export class DataSource {
+export class DataSourceEntity {
   /**
    * Auto-generated primary key.
    */

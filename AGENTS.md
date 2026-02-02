@@ -1,0 +1,3 @@
+- Do not use sleep to "wait" for tasks, sleep is blocking
+- Check what is running the terminal before adding new commands
+- 
